@@ -6,14 +6,11 @@ spring:
     name: LMS-GATEWAY
   cloud:
     gateway:
-      default-filters:
-        - name: "CustomGlobalFilter"
-          args:
-            logging: "true"
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins:
+              - "http://localhost:3000"  # 여기에 모든 허용하는 origin을 나열
             allowedMethods:
               - GET
               - POST
@@ -21,11 +18,29 @@ spring:
               - DELETE
               - OPTIONS
             allowedHeaders: "*"
+            allowCredentials: true
       routes:
-        - id: auth-service
-          uri: "lb://AUTH-SERVICE"
+        - id: auth-server-filter
+          uri: "lb://AUTH-SERVER"
+          predicates:
+            - Path=/api/v1/test/**
+          filters:
+            - name: "TokenFilter"
+              args:
+                logging: false
+        - id: auth-server
+          uri: "lb://AUTH-SERVER"
           predicates:
             - Path=/api/v1/auth/**
+        - id: lms-service
+          uri: "lb://LMS-SERVER"
+          predicates:
+            - Path=/api/v1/lms/**
+          filters:
+            - name: "TokenFilter"
+              args:
+                logging: false
+
 
 management:
   endpoints:
