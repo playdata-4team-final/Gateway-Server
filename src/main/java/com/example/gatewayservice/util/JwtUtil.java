@@ -1,4 +1,4 @@
-package com.example.gatewayservice.config;
+package com.example.gatewayservice.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
