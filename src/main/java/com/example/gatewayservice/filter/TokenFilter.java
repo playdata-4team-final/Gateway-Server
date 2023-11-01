@@ -1,6 +1,6 @@
 package com.example.gatewayservice.filter;
 
-import com.example.gatewayservice.config.JwtUtil;
+import com.example.gatewayservice.util.JwtUtil;
 import com.example.gatewayservice.dto.CustomDto;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
