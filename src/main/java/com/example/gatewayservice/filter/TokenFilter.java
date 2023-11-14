@@ -45,6 +45,7 @@ public class TokenFilter extends AbstractGatewayFilterFactory<CustomDto> {
             
             // 유효성 검사 에러 발생
             if (validateTokenResult != "Authorized") {
+                System.out.println("유효성");
                 return sendErrorResponse(exchange, validateTokenResult);
             }
 
