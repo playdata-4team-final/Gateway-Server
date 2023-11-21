@@ -40,6 +40,12 @@ spring:
             - name: "TokenFilter"
               args:
                 logging: false
+
+        - id: lms-server-noToken
+          uri: "lb://LMS-SERVER"
+          predicates:
+            - Path=/api/v1/major/**
+
         - id: lms-server2
           uri: "lb://LMS-SERVER"
           predicates:
@@ -48,6 +54,27 @@ spring:
             - name: "TokenFilter"
               args:
                 logging: false
+
+        - id: notice-server
+          uri: "lb://NOTICE-SERVER"
+          predicates:
+            - Path=/api/v1/board/**
+          filters:
+            - name: "TokenFilter"
+              args:
+                logging: false
+
+        - id: mail-server
+          uri: "lb://MAIL-SERVER"
+          predicates:
+            - Path=/api/v1/mail/**, /api/v1/member/**
+          filters:
+            - name: "TokenFilter"
+              args:
+                logging: false
+
+
+
 
 management:
   endpoints:
